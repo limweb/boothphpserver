@@ -1,0 +1,7 @@
+{
+    "require": {
+        "illuminate/database": "5.1",
+        "mpdf/mpdf": "6.0-beta",
+        "yajra/laravel-oci8": "dev-master"
+    }
+}

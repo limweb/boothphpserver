@@ -1,0 +1,57 @@
+<?php 
+
+$title = '';
+$pageheader = '';
+$columnheader = '';
+$groupheader = '';
+$detail = '';
+$groupfooter = '';
+$columnfooter = '';
+$pagefooter = '';
+$lastpagefooter = '';
+$summary='';
+$css = '';
+
+
+<!DOCTYPE html>
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>report structure</title>
+            <link rel="stylesheet" href=""  />
+    </head>
+    <body>
+        <report>
+            <title>title</title>
+                 <rhead>
+                        <pageheader>header</pageheader>
+                        <columnheaer>aaa,bbbb,ccccc,ddddd</columnheaer>
+                 <head>
+                <rbody>
+                        <details>
+                                <groups>
+
+                                    <rgroup>
+                                        <groupheader></groupheader>
+                                        <groupdatail></groupdetail>
+                                        <groupfooter></grouphooter>
+                                    </rgroup>
+
+                                    <rgroup>
+                                        <groupheader></groupheader>
+                                        <groupdatail></groupdetail>
+                                        <groupfooter></grouphooter>
+                                    </rgroup>
+                                    
+                                <groups>
+                        </detail>
+                <rbody>
+                <rfoot>
+                        <columnfooter></columnfooter>
+                        <pagefooter>footer</pagefooter>
+                </rfoot>
+            <lastpagefooter></lastpagefooter>
+            <summary></summary>
+        </report>
+    </body>
+</html>

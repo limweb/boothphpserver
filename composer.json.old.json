@@ -1,0 +1,7 @@
+{
+    "require": {
+        "illuminate/database": "~4.2",
+        "mpdf/mpdf": "~5.7",
+        "yajra/laravel-oci8": "v2.1.4.2"
+    }
+}
