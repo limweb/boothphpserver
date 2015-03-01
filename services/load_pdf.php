@@ -1,4 +1,5 @@
 <?php
+$start = microtime();
 use Illuminate\Database\Capsule\Manager as Capsule;
 require_once __DIR__.'/../database.php';
 date_default_timezone_set('UTC');
@@ -227,7 +228,7 @@ $foothtml .= '
   $html = $headhtml.$h.$foothtml;
   $mpdf->WriteHTML($html);
   $mpdf->Output();
-
+  consolelog(microtime()-$start);
   }
 else
   {

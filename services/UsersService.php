@@ -15,7 +15,8 @@ class User  extends Illuminate\Database\Eloquent\Model  {
 // $user->username = "testadmin1";
 // $user->password = "testpassword123";
 // $sv = new UsersService();
-// echo $sv->register($user);
+// // echo $sv->register($user);
+// echo $sv->getusers();
 // exit();
 // $rs = $sv->login(['username'=>'testadmin1','password'=>'testpassword123']);
 // echo $rs;
@@ -43,6 +44,7 @@ class UsersService {
 
 
     public function register($user){
+           consolelog($user);
            $user->password = password_hash($user->password, PASSWORD_BCRYPT,$this->options);
            $user = json_decode(json_encode($user),TRUE);
            return User::create((array) $user);
@@ -50,6 +52,7 @@ class UsersService {
 
     public function login($user){
         consolelog('login:');
+        consolelog($user);
         // $u = User::where('username',$user['username'])->first();
         // if (password_verify($user['password'], $u['password'])) {
         //         echo 'Password is valid!';
@@ -58,10 +61,11 @@ class UsersService {
         //         echo 'Invalid password.';
         // }
         $user = toObj($user);
-        $u = User::where('username',$user->username)->first();
+        $u = User::where('username',$user->username)->where('status','1')->first();
         if(password_verify($user->password,$u->password)){
               // echo $u  . 'Password is vald!';
             // var_dump($u->toArray());
+              consolelog($u);
               return $u->toArray();
         } else {
              // echo 'Invalid password';
@@ -71,16 +75,27 @@ class UsersService {
     }
 
     public function deluser($id){
-            $u = User::destroy($id);
-            return $u;
+            // $u = User::destroy($id);
+      $u = User::find($id);
+      $u->status = 0;
+      $u->save();
+      return $u;
     }
 
-    public function updateuser($user){
-            $user->password = password_hash($user->password, PASSWORD_BCRYPT,$this->options);
+    public function updateuser( $user){
+           consolelog('update user');
+           $user = (object) $user;
+            // $user->password = password_hash($user->password, PASSWORD_BCRYPT,$this->options);
+            // $user = json_decode(json_encode($user),TRUE);
             $u = User::find($user->id);
             if($u) {
-                $user = json_decode(json_encode($user),TRUE);
-                return $u->update($user);
+                $u->username = $user->username;
+                $u->status = $user->status;
+                $u->role = $user->role;
+                $u->save();
+                // return $u->update($user);
+                consolelog($u);
+                return $u;
             } else {
                 return -1;
             }
@@ -88,7 +103,8 @@ class UsersService {
 
     public function getusers(){
         consolelog('get all user');
-        $rs = User::all();
+        // $rs =  User::where('status',1)->get()->toArray();
+        $rs = User::all()->toArray();
         return $rs;
     }
 
@@ -97,5 +113,25 @@ class UsersService {
         return $u;
    }
 
+
+    public function changepass($obj) {
+        $u = User::find($obj->id);
+        if($u) {
+              if( password_verify($obj->oldpassword,$u->password) ){
+                   $u->password = password_hash($obj->newpassword, PASSWORD_BCRYPT,$this->options);
+                   $u->save();
+                   return $u;
+              }
+        } else {
+          return -1;
+        }
+
+    }
+
+    public function resetpass($id) {
+        $u = User::find($id);
+        $u->password = password_hash('123456', PASSWORD_BCRYPT,$this->options);
+        $u->save();
+    }
 
 }

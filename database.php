@@ -20,6 +20,7 @@ $manager = $capsule->getDatabaseManager()->extend('mongodb', function($config){
 */
 
 // for Oracle connection  --- start ------
+/*
 $manager = $capsule->getDatabaseManager();
 $manager->extend('oracle', function($config)
 {
@@ -30,6 +31,7 @@ $manager->extend('oracle', function($config)
     $db->setDateFormat('YYYY-MM-DD HH24:MI:SS');
     return $db;
 });
+*/
 // for Oracle connection  --- end ------
 
 
@@ -37,14 +39,14 @@ $manager->extend('oracle', function($config)
 $capsule->addConnection(
 
        // driver for oracle   
-       [  'driver'   => 'oracle',
-        'host'     => 'localhost',
-        'database' => 'xe',
-        'username' => 'system',
-        'password' => 'roottoor',
-        'prefix'   => '',
-        'port'  => 1521
-      ]
+      //  [  'driver'   => 'oracle',
+      //   'host'     => 'localhost',
+      //   'database' => 'xe',
+      //   'username' => 'system',
+      //   'password' => 'roottoor',
+      //   'prefix'   => '',
+      //   'port'  => 1521
+      // ]
 
 
         // [
@@ -59,14 +61,14 @@ $capsule->addConnection(
         // ]
 
     // TOMATO_COM1 // Windows Auth
-    // [
-    // 'driver'   => 'sqlsrv',
-    // 'host'     => '127.0.0.1', 
-    // 'database' => 'test',
-    // 'username' => NULL,
-    // 'password' => NULL,
-    // 'prefix'   => '',
-    // ]
+    [
+    'driver'   => 'sqlsrv',
+    'host'     => '127.0.0.1', 
+    'database' => 'test',
+    'username' => NULL,
+    'password' => NULL,
+    'prefix'   => '',
+    ]
 
     // [
     // 'driver'   => 'sqlsrv',
